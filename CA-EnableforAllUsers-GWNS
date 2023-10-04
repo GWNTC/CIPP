@@ -1,0 +1,87 @@
+{
+    "id":  "47ae3033-e8f2-4596-a99a-303901b2ebae",
+    "templateId":  null,
+    "displayName":  "Enable MFA for All Users (GWN Standard)",
+    "createdDateTime":  "\/Date(1654713896269)\/",
+    "modifiedDateTime":  "\/Date(1696363812103)\/",
+    "state":  "enabled",
+    "sessionControls":  null,
+    "conditions":  {
+                       "userRiskLevels":  [
+
+                                          ],
+                       "signInRiskLevels":  [
+
+                                            ],
+                       "clientAppTypes":  [
+                                              "all"
+                                          ],
+                       "platforms":  null,
+                       "locations":  null,
+                       "times":  null,
+                       "deviceStates":  null,
+                       "devices":  null,
+                       "clientApplications":  null,
+                       "applications":  {
+                                            "includeApplications":  [
+                                                                        "All"
+                                                                    ],
+                                            "excludeApplications":  [
+
+                                                                    ],
+                                            "includeUserActions":  [
+
+                                                                   ],
+                                            "includeAuthenticationContextClassReferences":  [
+
+                                                                                            ],
+                                            "applicationFilter":  null
+                                        },
+                       "users":  {
+                                     "includeUsers":  [
+                                                          "All"
+                                                      ],
+                                     "excludeUsers":  [
+                                                         
+                                                      ],
+                                     "includeGroups":  [
+
+                                                       ],
+                                     "excludeGroups":  [
+
+                                                       ],
+                                     "includeRoles":  [
+
+                                                      ],
+                                     "excludeRoles":  [
+                                                          "d29b2b05-8046-44ba-8758-1e26182fcf32"
+                                                      ],
+                                     "includeGuestsOrExternalUsers":  null,
+                                     "excludeGuestsOrExternalUsers":  {
+                                                                          "guestOrExternalUserTypes":  "serviceProvider",
+                                                                          "externalTenants":  {
+                                                                                                  "@odata.type":  "#microsoft.graph.conditionalAccessEnumeratedExternalTenants",
+                                                                                                  "membershipKind":  "enumerated",
+                                                                                                  "members":  [
+                                                                                                                  "48b056e8-9db4-434b-be06-0fb0bf46a081"
+                                                                                                              ]
+                                                                                              }
+                                                                      }
+                                 }
+                   },
+    "grantControls":  {
+                          "operator":  "OR",
+                          "builtInControls":  [
+                                                  "mfa"
+                                              ],
+                          "customAuthenticationFactors":  [
+
+                                                          ],
+                          "termsOfUse":  [
+
+                                         ],
+                          "authenticationStrength@odata.context":  "https://graph.microsoft.com/beta/$metadata#identity/conditionalAccess/policies(\u002747ae3033-e8f2-4596-a99a-303901b2ebae\u0027)/grantControls/authenticationStrength/$entity",
+                          "authenticationStrength":  null
+                      },
+    "@odata.context":  "https://graph.microsoft.com/beta/$metadata#identity/conditionalAccess/policies/$entity"
+}
