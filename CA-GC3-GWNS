@@ -1,0 +1,95 @@
+{
+    "id":  "2caed188-800d-43e6-a3da-5996708917eb",
+    "templateId":  null,
+    "displayName":  "GreatCloud 3 MFA",
+    "createdDateTime":  "\/Date(1672253689438)\/",
+    "modifiedDateTime":  "\/Date(1672845988492)\/",
+    "state":  "enabled",
+    "conditions":  {
+                       "userRiskLevels":  [
+
+                                          ],
+                       "signInRiskLevels":  [
+
+                                            ],
+                       "clientAppTypes":  [
+                                              "browser",
+                                              "mobileAppsAndDesktopClients"
+                                          ],
+                       "platforms":  null,
+                       "locations":  null,
+                       "times":  null,
+                       "deviceStates":  null,
+                       "devices":  null,
+                       "clientApplications":  null,
+                       "applications":  {
+                                            "includeApplications":  [
+                                                                        "9cdead84-a844-4324-93f2-b2e6bb768d07",
+                                                                        "372140e0-b3b7-4226-8ef9-d57986796201",
+                                                                        "a4a365df-50f1-4397-bc59-1a1564b8bb9c"
+                                                                    ],
+                                            "excludeApplications":  [
+
+                                                                    ],
+                                            "includeUserActions":  [
+
+                                                                   ],
+                                            "includeAuthenticationContextClassReferences":  [
+
+                                                                                            ],
+                                            "applicationFilter":  null
+                                        },
+                       "users":  {
+                                     "includeUsers":  [
+
+                                                      ],
+                                     "excludeUsers":  [
+
+                                                      ],
+                                     "includeGroups":  [
+                                                           "b94b4d31-e6a3-4513-91da-95b864106b4b"
+                                                       ],
+                                     "excludeGroups":  [
+
+                                                       ],
+                                     "includeRoles":  [
+
+                                                      ],
+                                     "excludeRoles":  [
+
+                                                      ],
+                                     "includeGuestsOrExternalUsers":  null,
+                                     "excludeGuestsOrExternalUsers":  null
+                                 }
+                   },
+    "grantControls":  {
+                          "operator":  "OR",
+                          "builtInControls":  [
+                                                  "mfa"
+                                              ],
+                          "customAuthenticationFactors":  [
+
+                                                          ],
+                          "termsOfUse":  [
+
+                                         ],
+                          "authenticationStrength@odata.context":  "https://graph.microsoft.com/beta/$metadata#identity/conditionalAccess/policies(\u00272caed188-800d-43e6-a3da-5996708917eb\u0027)/grantControls/authenticationStrength/$entity",
+                          "authenticationStrength":  null
+                      },
+    "sessionControls":  {
+                            "disableResilienceDefaults":  null,
+                            "applicationEnforcedRestrictions":  null,
+                            "cloudAppSecurity":  null,
+                            "persistentBrowser":  null,
+                            "continuousAccessEvaluation":  null,
+                            "secureSignInSession":  null,
+                            "signInFrequency":  {
+                                                    "value":  15,
+                                                    "type":  "hours",
+                                                    "authenticationType":  "primaryAndSecondaryAuthentication",
+                                                    "frequencyInterval":  "timeBased",
+                                                    "isEnabled":  true
+                                                }
+                        },
+    "@odata.context":  "https://graph.microsoft.com/beta/$metadata#identity/conditionalAccess/policies/$entity"
+}
