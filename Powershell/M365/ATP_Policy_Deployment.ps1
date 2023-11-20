@@ -12,7 +12,7 @@ $clients = Get-MsolPartnerContract -All
 foreach ($client in $clients) {
     $ClientDomain = Get-MsolDomain -TenantId $client.TenantId | Where-Object {$_.IsInitial -eq $true}
     $CLIENTDOMAIN2 = (Get-MgDomain | Where-Object {$_.isDefault}).Id
-    #Set CLient Code 
+    #Set Client Code 
 	Connect-MgGraph -Scopes "Domain.Read.All"
 	$CLIENTDOMAIN2 = (Get-MgDomain | Where-Object {$_.isDefault}).Id
 	if ($CLIENTDOMAIN -eq 'abcbuslines.com')
@@ -181,8 +181,8 @@ foreach ($client in $clients) {
     -MarkAsSpamFormTagsInHtml On -MarkAsSpamFramesInHtml On -MarkAsSpamFromAddressAuthFail On -MarkAsSpamJavaScriptInHtml On -MarkAsSpamNdrBackscatter On -MarkAsSpamObjectTagsInHtml On `
     -MarkAsSpamSpfRecordHardFail On -MarkAsSpamWebBugsInHtml On -MarkAsSpamSensitiveWordList On -TestModeAction AddXHeader
 
-    #Malwarefiltersettings Office365 
-    Set-MalwareFilterPolicy -Identity "Default" -Action DeleteAttachmentAndUseDefaultAlertText -EnableFileFilter $true -FileTypes ".cpl", ".ace", ".app",".docm",".exe",".jar",".reg",".scr",".vbe",".vbs",".bat",".msi", `
+    Set-MalwareFilterPoli    #Malwarefiltersettings Office365 
+cy -Identity "Default" -Action DeleteAttachmentAndUseDefaultAlertText -EnableFileFilter $true -FileTypes ".cpl", ".ace", ".app",".docm",".exe",".jar",".reg",".scr",".vbe",".vbs",".bat",".msi", `
     ".ani", ".dll", ".lnf", ".mdb", ".ws", ".cmd", ".com", ".crt", ".dos", ".lns", ".ps1", ".wsh", ".wsc" -EnableExternalSenderNotifications $true -EnableInternalSenderNotifications $true 
      
     #Default Sharing Policy Calendar 
