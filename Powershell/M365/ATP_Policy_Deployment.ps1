@@ -148,31 +148,31 @@ foreach ($client in $clients) {
 	{ $CLIENTCODE = 'WCFDC'}
 
     #Connect to Exchange online and create ATP Rules
-    Write-host "Logging into portal for $($client.Name) with Client Code $($CLIENTCODE)
+    Write-Output "Logging into portal for $($client.Name) with Client Code $($CLIENTCODE)
     $DelegatedOrgURL = "https://ps.outlook.com/powershell-liveid?DelegatedOrg=" + $ClientDomain.Name"
     $ExchangeOnlineSession = New-PSSession -ConnectionUri $DelegatedOrgURL -Credential $credential -Authentication Basic -ConfigurationName Microsoft.Exchange -AllowRedirection
     Import-PSSession -Session $ExchangeOnlineSession -AllowClobber -DisableNameChecking
     #Ensure GWNTC Help Address is External Contact
-	Write-Host "Adding GWNTC Help as an external Contact for Client Code $($CLIENTCODE)"
+	Write-Output "Adding GWNTC Help as an external Contact for Client Code $($CLIENTCODE)"
     New-MailContact -Name "GWNTC Helpdesk" -ExternalEmailAddress help@greatwhitenorth.com -Alias gwntchelpdsk
 
     $domains= Get-AcceptedDomain
-    $GWNHELPEMAIL= help@greatwhitenorth.com
+    $GWNHELPEMAIL= 'help@greatwhitenorth.com'
 
     #Configure default Safe Links policy and rule:
 	Write-Host "Adding Safe Links Rules for Client Code $($CLIENTCODE)"
     New-SafeLinksPolicy -Name "GWN Safe Links Policy" -IsEnabled $true -EnableSafeLinksForTeams $true -scanurls $true -DeliverMessageAfterScan $true -DoNotAllowClickThrough $true -enableforinternalsenders $true -DoNotTrackUserClicks $false 
-    New-SafeLinksRule -Name "GWN Safe Links Rule" -SafeLinksPolicy "Safe Links Policy" -RecipientDomainIs $domains[0] 
+    New-SafeLinksRule -Name "GWN Safe Links Rule" -SafeLinksPolicy "GWN Safe Links Policy" -RecipientDomainIs $domains[0] 
 
     #Configure default Safe Attachments policy and rule:
 	Write-Host "Adding Safe Attachement Rule for Client Code $($CLIENTCODE)"
     New-SafeAttachmentPolicy -Name "GWN Safe Attachment Policy" -Enable $true -Redirect $false -RedirectAddress $GWNHELPEMAIL 
-    New-SafeAttachmentRule -Name "GWN Safe Attachment Rule" -SafeAttachmentPolicy "Safe Attachment Policy" -RecipientDomainIs $domains[0] 
+    New-SafeAttachmentRule -Name "GWN Safe Attachment Rule" -SafeAttachmentPolicy "GWN Safe Attachment Policy" -RecipientDomainIs $domains[0] 
 
     #Configure the default Anti-phish policy and rule: 
 	Write-Host "Adding Anti-Phish Rules for Client Code $($CLIENTCODE)"
     New-AntiPhishPolicy -Name "GWN AntiPhish Policy" -Enabled $true -EnableOrganizationDomainsProtection $true -EnableSimilarUsersSafetyTips $true -EnableSimilarDomainsSafetyTips $true -EnableUnusualCharactersSafetyTips $true -AuthenticationFailAction Quarantine -EnableMailboxIntelligenceProtection $true -MailboxIntelligenceProtectionAction movetoJMF -PhishThresholdLevel 2 -TargetedUserProtectionAction movetoJMF -EnableTargetedDomainsProtection $true -TargetedDomainProtectionAction MovetoJMF -EnableAntispoofEnforcement $true 
-    New-AntiPhishRule -Name "GWN AntiPhish Rule" -AntiPhishPolicy "AntiPhish Policy" -RecipientDomainIs $domains[0] 
+    New-AntiPhishRule -Name "GWN AntiPhish Rule" -AntiPhishPolicy "GWN AntiPhish Policy" -RecipientDomainIs $domains[0] 
 
     #Configure ATP for Office 365 apps (Off by Default): 
 	Write-Host "Adding ATP Rules for Client Code $($CLIENTCODE)"
@@ -187,7 +187,7 @@ foreach ($client in $clients) {
 
     #Malwarefiltersettings Office365 
 	Write-Host "Setting Malware Filters for Client Code $($CLIENTCODE)"
-    Set-MalwareFilterPolicy -Identity "Default" -Action DeleteAttachmentAndUseDefaultAlertText -EnableFileFilter $true -FileTypes ".cpl", ".ace", ".app",".docm",".exe",".jar",".reg",".scr",".vbe",".vbs",".bat",".msi", `
+    Set-MalwareFilterPolicy -Identity "Default" -Action DeleteAttachmentAndUseDefaultAlert -EnableFileFilter $true -FileTypes ".cpl", ".ace", ".app",".docm",".exe",".jar",".reg",".scr",".vbe",".vbs",".bat",".msi", `
     ".ani", ".dll", ".lnf", ".mdb", ".ws", ".cmd", ".com", ".crt", ".dos", ".lns", ".ps1", ".wsh", ".wsc" -EnableExternalSenderNotifications $true -EnableInternalSenderNotifications $true 
      
     #Default Sharing Policy Calendar 
@@ -207,14 +207,7 @@ foreach ($client in $clients) {
 
     # Disable Imap & POP 
 	Write-Hosts "Diabling IMAP & POP for Client Code $($CLIENTCODE)"
-    Get-CASMailboxPlan | Set-CASMailboxPlan -ImapEnabled $false -PopEnabled $false 
 
-    #Block Client Forwarding Rules
-	#Blocks external forwarding to non-tenant addresses
-	Write-Host "Adding External Forward Block CLient Rule"
-    New-TransportRule -name "GWNTC Client Rules To External Block" -Priority 0 -SentToScope NotInOrganization -FromScope InOrganization -MessageTypeMatches AutoForward -RejectMessageEnhancedStatusCode 5.7.1 -RejectMessageReasonText $rejectMessageText -Set-RemoteDomain -AutoForwardEnabled $false
-    Remove-PSSession $ExchangeOnlineSession
-	
 	#Write Complete Message 
 	Wrtie-Host "Configuration Complete for Client Code $($CLIENTCODE)"
 }
